@@ -49,7 +49,7 @@ export default function Home() {
 
   const handleSelect = (m: GameMode) => {
     initAudio()
-    speak(`Vamos a aprender ${GAME_META[m]?.label ?? ''}`, 0.82, 1.12, true)
+    playPhrase(`nav-${m}`, `Vamos a aprender ${GAME_META[m]?.label ?? ''}`)
     setMode(m)
   }
 

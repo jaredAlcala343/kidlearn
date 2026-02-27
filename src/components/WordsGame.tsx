@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from 'react'
 import { WORDS_ES } from '@/lib/gameData'
-import { speak, speakLetterWord, playSparkleTone, playWrongTone, speakCelebration, initAudio } from '@/lib/sounds'
+import { playWord, playLetter, playSparkleTone, playWrongTone, playCelebrationVoice, playCorrect, playTryAgain, initAudio } from '@/lib/sounds'
 import Confetti from './Confetti'
 
 function shuffle<T>(arr: T[]): T[] { return [...arr].sort(() => Math.random() - 0.5) }
@@ -63,7 +63,7 @@ export default function WordsGame() {
           setTotal(t => t + 1)
           setWrongAnim(true)
           playWrongTone()
-          setTimeout(() => speak('¡Inténtalo de nuevo!', 0.82, 1.1), 200)
+          playTryAgain()
           setTimeout(() => {
             setWrongAnim(false)
             setState(buildState(wordData))
