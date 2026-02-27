@@ -33,7 +33,7 @@ export default function WordsGame() {
   const handlePlaceLetter = useCallback((letter: string, fromIdx: number) => {
     if (correct) return
     initAudio()
-    speak(letter, 0.7, 1.3)
+    playLetter(letter)
 
     setState(prev => {
       const newPlaced = [...prev.placed]
@@ -53,11 +53,11 @@ export default function WordsGame() {
           const ns = streak + 1
           setStreak(ns)
           if (ns % 5 === 0) {
-            speakCelebration()
+            playCelebrationVoice()
             setShowConfetti(true)
             setTimeout(() => setShowConfetti(false), 3000)
           } else {
-            setTimeout(() => speak(wordData.word, 0.74, 1.12), 400)
+            setTimeout(() => playWord(wordData.word), 400)
           }
         } else {
           setTotal(t => t + 1)
@@ -78,7 +78,7 @@ export default function WordsGame() {
   const handleRemoveLetter = useCallback((slotIdx: number) => {
     if (correct || state.placed[slotIdx] === null) return
     const letter = state.placed[slotIdx]!
-    speak(letter, 0.7, 1.3)
+    playLetter(letter)
     setState(prev => {
       const newPlaced = [...prev.placed]
       newPlaced[slotIdx] = null
@@ -121,7 +121,7 @@ export default function WordsGame() {
           {/* Left: emoji */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
             <button
-              onClick={() => { initAudio(); speak(wordData.word, 0.74, 1.12) }}
+              onClick={() => { initAudio(); playWord(wordData.word) }}
               style={{
                 width: '120px', height: '120px', borderRadius: '28px',
                 backgroundColor: '#FDF3EA', border: '3px solid #F5C9A8',

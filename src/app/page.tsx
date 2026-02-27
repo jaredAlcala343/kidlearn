@@ -6,7 +6,7 @@ import Menu from '@/components/Menu'
 import LettersGame from '@/components/LettersGame'
 import NumbersGame from '@/components/NumbersGame'
 import WordsGame from '@/components/WordsGame'
-import { speak, initAudio, startBgMusic, stopBgMusic, setBgVolume } from '@/lib/sounds'
+import { playPhrase, initAudio, startBgMusic, stopBgMusic, preloadCriticalAudio } from '@/lib/sounds'
 
 const GAME_META: Record<string, { label: string; emoji: string; accent: string; light: string; desc: string }> = {
   letters: { label: 'Letras',   emoji: '🔤', accent: '#7EB8D4', light: '#EEF6FB', desc: 'Explora el abecedario y pon a prueba lo que sabes' },
@@ -24,6 +24,7 @@ export default function Home() {
     if (audioInit) return
     setAudioInit(true)
     initAudio()
+    preloadCriticalAudio()
     setTimeout(() => {
       startBgMusic()
       setMusicOn(true)
@@ -53,7 +54,7 @@ export default function Home() {
   }
 
   const handleBack = () => {
-    speak('Menú principal', 0.82, 1.1, true)
+    playPhrase('nav-menu', 'Menú principal')
     setMode('menu')
   }
 
